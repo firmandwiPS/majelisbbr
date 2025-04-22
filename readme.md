@@ -6,12 +6,9 @@ Teknologi :
 User Login : 
 1. Akun Admin 
 - username : admin
-- password : 123456
+- password : admin123
 
-2. Akun Operator Barang
-- username : barang
-- password : 123456
+2. Akun anggota
+- username : anggota
+- password : anggota123
 
-3. Akun Operator Mahasiswa 
-- username : mahasiswa
-- password : 123456
