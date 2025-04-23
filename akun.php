@@ -50,7 +50,7 @@ if (isset($_POST['ubah'])) {
 }
 ?>
 
-<section class="bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
+<section class="bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 min-h-screen pt-24">
   <div class="max-w-7xl mx-auto">
     <!-- Judul -->
     <div class="text-center mb-10">
@@ -69,64 +69,57 @@ if (isset($_POST['ubah'])) {
     <?php endif; ?>
 
     <!-- Tabel -->
-    <div class="bg-white shadow-xl rounded-xl overflow-hidden ring-1 ring-gray-200">
-      <div class="overflow-x-auto">
+<div class="table-container bg-white shadow-xl rounded-xl overflow-hidden ring-1 ring-gray-200">
+    <div class="overflow-x-auto">
         <table class="min-w-full text-sm text-left">
-          <thead class="bg-emerald-700 text-white">
-            <tr>
-              <th class="px-5 py-3">No</th>
-              <th class="px-5 py-3">Nama</th>
-              <th class="px-5 py-3">Username</th>
-              <th class="px-5 py-3">Email</th>
-              <th class="px-5 py-3">Password</th>
-              <th class="px-5 py-3 text-center">Aksi</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-100 bg-white">
-            <?php $no = 1; ?>
-            <?php if ($_SESSION['level'] == 1): ?>
-              <?php foreach ($data_akun as $akun): ?>
-              <tr class="hover:bg-emerald-50">
-                <td class="px-5 py-4"><?= $no++; ?></td>
-                <td class="px-5 py-4"><?= htmlspecialchars($akun['nama']); ?></td>
-                <td class="px-5 py-4"><?= htmlspecialchars($akun['username']); ?></td>
-                <td class="px-5 py-4"><?= htmlspecialchars($akun['email']); ?></td>
-                <td class="px-5 py-4 italic text-gray-400">Terenkripsi</td>
-                <td class="px-5 py-4 text-center space-x-2">
-                  <button data-bs-toggle="modal" data-bs-target="#modalUbah<?= $akun['id_akun']; ?>"
-                    class="inline-flex items-center gap-1 px-3 py-1 bg-yellow-400 text-yellow-900 rounded-full hover:bg-yellow-500 transition">
-                    <i class="fa-regular fa-pen-to-square"></i> Ubah
-                  </button>
-                  <button data-bs-toggle="modal" data-bs-target="#modalHapus<?= $akun['id_akun']; ?>"
-                    class="inline-flex items-center gap-1 px-3 py-1 bg-red-600 text-white rounded-full hover:bg-red-700 transition">
-                    <i class="fa-solid fa-trash-can"></i> Hapus
-                  </button>
-                </td>
-              </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <?php foreach ($data_bylogin as $akun): ?>
-              <tr class="hover:bg-emerald-50">
-                <td class="px-5 py-4"><?= $no++; ?></td>
-                <td class="px-5 py-4"><?= htmlspecialchars($akun['nama']); ?></td>
-                <td class="px-5 py-4"><?= htmlspecialchars($akun['username']); ?></td>
-                <td class="px-5 py-4"><?= htmlspecialchars($akun['email']); ?></td>
-                <td class="px-5 py-4 italic text-gray-400">Terenkripsi</td>
-                <td class="px-10 py-10 italic text-gray-400">Anda Tidak Memiliki Akses</td>
-                <!-- <td class="px-5 py-4 text-center">
-                  <button data-bs-toggle="modal" data-bs-target="#modalUbah<?= $akun['id_akun']; ?>"
-                    class="inline-flex items-center gap-1 px-3 py-1 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition">
-                    <i class="fa-regular fa-pen-to-square"></i> Ubah
-                  </button>
-                </td> -->
-              </tr>
-              <?php endforeach; ?>
-            <?php endif; ?>
-          </tbody>
+            <thead class="bg-emerald-700 text-white">
+                <tr>
+                    <th class="px-5 py-3">No</th>
+                    <th class="px-5 py-3">Nama</th>
+                    <th class="px-5 py-3">Username</th>
+                    <th class="px-5 py-3">Email</th>
+                    <th class="px-5 py-3">Password</th>
+                    <th class="px-5 py-3 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 bg-white">
+                <?php $no = 1; ?>
+                <?php if ($_SESSION['level'] == 1): ?>
+                    <?php foreach ($data_akun as $akun): ?>
+                    <tr class="hover:bg-emerald-50">
+                        <td class="px-5 py-4"><?= $no++; ?></td>
+                        <td class="px-5 py-4"><?= htmlspecialchars($akun['nama']); ?></td>
+                        <td class="px-5 py-4"><?= htmlspecialchars($akun['username']); ?></td>
+                        <td class="px-5 py-4"><?= htmlspecialchars($akun['email']); ?></td>
+                        <td class="px-5 py-4 italic text-gray-400">Terenkripsi</td>
+                        <td class="px-5 py-4 text-center space-x-2">
+                            <button data-bs-toggle="modal" data-bs-target="#modalUbah<?= $akun['id_akun']; ?>"
+                                class="inline-flex items-center gap-1 px-3 py-1 bg-yellow-400 text-yellow-900 rounded-full hover:bg-yellow-500 transition">
+                                <i class="fa-regular fa-pen-to-square"></i> Ubah
+                            </button>
+                            <button data-bs-toggle="modal" data-bs-target="#modalHapus<?= $akun['id_akun']; ?>"
+                                class="inline-flex items-center gap-1 px-3 py-1 bg-red-600 text-white rounded-full hover:bg-red-700 transition">
+                                <i class="fa-solid fa-trash-can"></i> Hapus
+                            </button>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <?php foreach ($data_bylogin as $akun): ?>
+                    <tr class="hover:bg-emerald-50">
+                        <td class="px-5 py-4"><?= $no++; ?></td>
+                        <td class="px-5 py-4"><?= htmlspecialchars($akun['nama']); ?></td>
+                        <td class="px-5 py-4"><?= htmlspecialchars($akun['username']); ?></td>
+                        <td class="px-5 py-4"><?= htmlspecialchars($akun['email']); ?></td>
+                        <td class="px-5 py-4 italic text-gray-400">Terenkripsi</td>
+                        <td class="px-10 py-4 italic text-gray-400">Anda Tidak Memiliki Akses</td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
         </table>
-      </div>
     </div>
-  </div>
+</div>
 </section>
 
 <!-- Modal tambah -->
