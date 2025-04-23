@@ -42,6 +42,8 @@ include 'config/app.php'
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.bootstrap5.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
 
   <!-- jQuery -->
   <script src="assets-template/plugins/jquery/jquery.min.js"></script>
@@ -57,20 +59,21 @@ include 'config/app.php'
     <img class="animation__shake" src="assets-template/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="dokumentasi.php" class="nav-link">Home</a>
-      </li>
-    </ul>
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: #065f46;">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button">
+        <i class="fas fa-bars"></i>
+      </a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="dokumentasi.php" class="nav-link text-white">Home</a>
+    </li>
+  </ul>
+</nav>
 
-   
-  </nav>
   <!-- /.navbar -->
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #065f46;"> 

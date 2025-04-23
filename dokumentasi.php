@@ -19,8 +19,6 @@ if ($_SESSION["level"] != 1 and $_SESSION["level"] != 2) {
 
 $title = 'Dokumentasi';
 include 'layout/header.php';
-
-
 ?>
 
 

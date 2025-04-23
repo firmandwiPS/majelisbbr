@@ -48,100 +48,85 @@ if (isset($_POST['ubah'])) {
         </script>";
     }
 }
-
-
-
 ?>
 
-<div class="content-wrapper mt-5">
-    <h1 class=""> Data Akun </h1>
-    <hr>
-
-
-
-
-<section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <div class="card shadow-sm rounded">
-          <div class="card-header bg-primary text-white">
-            <h3 class="card-title"> Tabel Data Akun</h3>
-          </div>
-          
-          <!-- /.card-header -->
-          <div class="card-body">
-          <?php if ($_SESSION['level'] == 1 ) : ?>
-    <button type="button" class="btn btn-primary mb-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#modalTambah"><i
-            class="fa-solid fa-circle-plus "></i> Tambah</button>
-<?php endif; ?>
-
-            <!-- Table -->
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped mt-3" id="table">
-                <thead class="thead-light">
-                  <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $no = 1; ?>
-                  <?php if ($_SESSION['level'] == 1) : ?>
-                    <?php foreach ($data_akun as $akun): ?>
-                      <tr>
-                        <td><?= $no++; ?></td>
-                        <td><?= htmlspecialchars($akun['nama']); ?></td>
-                        <td><?= htmlspecialchars($akun['username']); ?></td>
-                        <td><?= htmlspecialchars($akun['email']); ?></td>
-                        <td>Password Ter-enkripsi</td>
-                        <td width="20%" class="text-center">
-                          <button type="button" class="btn btn-warning mb-1 rounded-pill" data-bs-toggle="modal"
-                                  data-bs-target="#modalUbah<?= $akun['id_akun']; ?>">
-                            <i class="fa-regular fa-pen-to-square"></i> Ubah
-                          </button>
-                          <button type="button" class="btn btn-danger mb-1 rounded-pill" data-bs-toggle="modal"
-                                  data-bs-target="#modalHapus<?= $akun['id_akun']; ?>">
-                            <i class="fa-solid fa-trash-can"></i> Hapus
-                          </button>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                  <?php else : ?>
-                    <?php foreach ($data_bylogin as $akun): ?>
-                      <tr>
-                        <td><?= $no++; ?></td>
-                        <td><?= htmlspecialchars($akun['nama']); ?></td>
-                        <td><?= htmlspecialchars($akun['username']); ?></td>
-                        <td><?= htmlspecialchars($akun['email']); ?></td>
-                        <td>Password Ter-enkripsi</td>
-                        <td width="20%" class="text-center">
-                          <button type="button" class="btn btn-success mb-1 rounded-pill" data-bs-toggle="modal"
-                                  data-bs-target="#modalUbah<?= $akun['id_akun']; ?>">
-                            <i class="fa-regular fa-pen-to-square"></i> Ubah
-                          </button>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                  <?php endif; ?>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.table-responsive -->
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col-12 -->
+<section class="bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    <!-- Judul -->
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold text-emerald-700">📋 Data Akun</h1>
+      <p class="text-gray-600 mt-2">Berisi informasi pengguna sistem majelis</p>
     </div>
-    <!-- /.row -->
+
+    <!-- Tombol tambah akun (admin) -->
+    <?php if ($_SESSION['level'] == 1) : ?>
+    <div class="mb-5 text-right">
+      <button data-bs-toggle="modal" data-bs-target="#modalTambah"
+        class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg shadow-md transition">
+        <i class="fa-solid fa-circle-plus"></i> Tambah Akun
+      </button>
+    </div>
+    <?php endif; ?>
+
+    <!-- Tabel -->
+    <div class="bg-white shadow-xl rounded-xl overflow-hidden ring-1 ring-gray-200">
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-left">
+          <thead class="bg-emerald-700 text-white">
+            <tr>
+              <th class="px-5 py-3">No</th>
+              <th class="px-5 py-3">Nama</th>
+              <th class="px-5 py-3">Username</th>
+              <th class="px-5 py-3">Email</th>
+              <th class="px-5 py-3">Password</th>
+              <th class="px-5 py-3 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 bg-white">
+            <?php $no = 1; ?>
+            <?php if ($_SESSION['level'] == 1): ?>
+              <?php foreach ($data_akun as $akun): ?>
+              <tr class="hover:bg-emerald-50">
+                <td class="px-5 py-4"><?= $no++; ?></td>
+                <td class="px-5 py-4"><?= htmlspecialchars($akun['nama']); ?></td>
+                <td class="px-5 py-4"><?= htmlspecialchars($akun['username']); ?></td>
+                <td class="px-5 py-4"><?= htmlspecialchars($akun['email']); ?></td>
+                <td class="px-5 py-4 italic text-gray-400">Terenkripsi</td>
+                <td class="px-5 py-4 text-center space-x-2">
+                  <button data-bs-toggle="modal" data-bs-target="#modalUbah<?= $akun['id_akun']; ?>"
+                    class="inline-flex items-center gap-1 px-3 py-1 bg-yellow-400 text-yellow-900 rounded-full hover:bg-yellow-500 transition">
+                    <i class="fa-regular fa-pen-to-square"></i> Ubah
+                  </button>
+                  <button data-bs-toggle="modal" data-bs-target="#modalHapus<?= $akun['id_akun']; ?>"
+                    class="inline-flex items-center gap-1 px-3 py-1 bg-red-600 text-white rounded-full hover:bg-red-700 transition">
+                    <i class="fa-solid fa-trash-can"></i> Hapus
+                  </button>
+                </td>
+              </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <?php foreach ($data_bylogin as $akun): ?>
+              <tr class="hover:bg-emerald-50">
+                <td class="px-5 py-4"><?= $no++; ?></td>
+                <td class="px-5 py-4"><?= htmlspecialchars($akun['nama']); ?></td>
+                <td class="px-5 py-4"><?= htmlspecialchars($akun['username']); ?></td>
+                <td class="px-5 py-4"><?= htmlspecialchars($akun['email']); ?></td>
+                <td class="px-5 py-4 italic text-gray-400">Terenkripsi</td>
+                <td class="px-10 py-10 italic text-gray-400">Anda Tidak Memiliki Akses</td>
+                <!-- <td class="px-5 py-4 text-center">
+                  <button data-bs-toggle="modal" data-bs-target="#modalUbah<?= $akun['id_akun']; ?>"
+                    class="inline-flex items-center gap-1 px-3 py-1 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition">
+                    <i class="fa-regular fa-pen-to-square"></i> Ubah
+                  </button>
+                </td> -->
+              </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <!-- /.container-fluid -->
 </section>
 
 <!-- Modal tambah -->
@@ -180,7 +165,7 @@ if (isset($_POST['ubah'])) {
                         <select name="level" id="level" class="form-control" required>
                             <option value="">-- Pilih Level --</option>
                             <option value="1">Admin</option>
-                            <option value="2">Angota Majelis</option>
+                            <option value="2">Anggota Majelis</option>
                             
                         </select>
                     </div>
@@ -244,7 +229,7 @@ if (isset($_POST['ubah'])) {
                             <select name="level" id="level" class="form-control" required>
                                 <?php $level = $akun['level']; ?>
                                 <option value="1" <?php $level == '1' ? 'selected' : null ?>>Admin</option>
-                                <option value="2" <?php $level == '2' ? 'selected' : null ?>>Angota Majelis</option>
+                                <option value="2" <?php $level == '2' ? 'selected' : null ?>>Anggota Majelis</option>
                                
                             </select>
                         </div>
