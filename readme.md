@@ -6,9 +6,12 @@ Teknologi :
 User Login : 
 1. Akun Admin 
 - username : admin
-- password : admin123
+- password : 123456
 
 2. Akun anggota
-- username : anggota
-- password : anggota123
+- username : anggota1
+- password : anggota111
 
+3. Akun anggota
+- username : anggota2
+- password : anggota222
