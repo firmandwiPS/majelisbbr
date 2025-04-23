@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['email'] = $hasil['email'];
                 $_SESSION['level'] = $hasil['level'];
 
-                header("Location: index.php");
+                header("Location: dokumentasi.php");
                 exit;
             } else {
                 $errorAuth = true;
@@ -48,67 +48,71 @@ if (isset($_POST['login'])) {
 ?>
 
 
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        body {
-            
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .login-container .form-floating input {
-            border-radius: 10px;
-        }
-        .login-container .btn-primary {
-            border-radius: 10px;
-            border: none;
-        }
-        .login-container .btn-primary:hover {
-            background: #2575ff;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login | Majelis Baburrahman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
-<body class="bg-primary">
-    <div class="login-container">
-        <img src="assets/img/logo.svg" alt="Logo" width="80" class="mb-3">
-        <h2 class="mb-4">Silahkan Login</h2>
-        <?php if ($errorAuth || $errorRecaptcha) : ?>
-    <div class="alert alert-danger" role="alert">
-        <?= $errorMessage; ?>
-    </div>
-<?php endif; ?>
-        <form action="" method="POST">
-            <div class="form-floating mb-3">
-                <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Username" required>
-                <label for="floatingInput"><i class="fas fa-user"></i> Username</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                <label for="floatingPassword"><i class="fas fa-lock"></i> Password</label>
-            </div>
-            <div class="mb-3">
-                <div class="g-recaptcha" data-sitekey="6LfD7ggqAAAAAI6xTRycQzsNyt5f2b2fq0vi5XTN"></div>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit" name="login">Login</button>
-        </form>
-    </div>
+<body class="bg-green-900 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center space-y-6 border-4 border-yellow-400">
+    <img src="assets/img/" alt="Logo Majelis" class="w-20 mx-auto mb-3" />
+    <h2 class="text-2xl font-bold text-green-800">Silahkan Login</h2>
 
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <?php if ($errorAuth || $errorRecaptcha) : ?>
+      <div class="bg-red-100 text-red-700 px-4 py-3 rounded-md text-sm">
+        <?= $errorMessage; ?>
+      </div>
+    <?php endif; ?>
+
+    <form action="" method="POST" class="space-y-4 text-left">
+      <div>
+        <label for="username" class="block text-sm font-medium text-green-800 mb-1">Username</label>
+        <input type="text" name="username" id="username" class="w-full px-4 py-2 border border-yellow-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="Masukkan username" required />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-green-800 mb-1">Password</label>
+        <div class="relative">
+          <input type="password" name="password" id="password" class="w-full px-4 py-2 border border-yellow-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 pr-10" placeholder="Masukkan password" required />
+          <button type="button" onclick="togglePassword()" class="absolute right-3 top-3 text-green-700 focus:outline-none">
+            <i id="eyeIcon" class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <div class="g-recaptcha" data-sitekey="6LfD7ggqAAAAAI6xTRycQzsNyt5f2b2fq0vi5XTN"></div>
+      </div>
+
+      <button type="submit" name="login" class="w-full bg-yellow-400 hover:bg-yellow-500 text-green-900 font-bold py-2 rounded-lg transition duration-300">
+        Login
+      </button>
+    </form>
+
+    <a href="index.php" class="inline-block mt-2 text-sm text-green-700 hover:underline hover:text-green-900 transition duration-200">
+      ← Kembali ke Beranda
+    </a>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const password = document.getElementById("password");
+      const icon = document.getElementById("eyeIcon");
+      if (password.type === "password") {
+        password.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        password.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+  </script>
 </body>
 </html>
