@@ -17,21 +17,58 @@ include 'layout/header.php';
 ?>
 
 <div class="container mx-auto px-4 py-10">
-    <!-- Upload Form -->
-    <div class="bg-emerald-700 text-white rounded-2xl shadow-xl p-8 mb-12 animate__animated animate__fadeIn">
-        <h1 class="text-3xl font-bold mb-4">Upload Dokumentasi Kegiatan</h1>
-        <p class="text-green-100 mb-6">Unggah banyak foto dalam satu kegiatan Majelis Baburrahman.</p>
-        <form action="upload.php" method="post" enctype="multipart/form-data" class="space-y-5">
-            <input type="text" name="nama_kegiatan" placeholder="Contoh: Pengajian Jumat" required
-                   class="border-2 border-green-300 rounded-lg w-full p-3 text-black bg-white focus:outline-none focus:ring-2 focus:ring-green-500" />
-            <input type="file" name="foto[]" multiple required
-                   class="border-2 border-green-300 rounded-lg w-full p-3 text-black bg-white focus:outline-none focus:ring-2 focus:ring-green-500" />
+<!-- Upload Form -->
+<div class="bg-gradient-to-br from-emerald-600 to-green-700 text-white rounded-2xl shadow-2xl p-8 mb-12 animate__animated animate__fadeIn">
+    <div class="flex items-center gap-3 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white bg-emerald-900 p-2 rounded-full shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2-2h6l2 2h4v11H3V7z" />
+        </svg>
+        <h1 class="text-3xl font-extrabold">Upload Dokumentasi Kegiatan</h1>
+    </div>
+    <p class="text-green-100 mb-6 text-sm sm:text-base">Unggah banyak foto dalam satu kegiatan Majelis Baburrahman. File akan otomatis dikategorikan.</p>
+
+    <form action="upload.php" method="post" enctype="multipart/form-data" class="space-y-5">
+        <!-- Nama Kegiatan -->
+        <div>
+            <label class="block text-sm font-semibold mb-1 text-white" for="nama_kegiatan">Nama Kegiatan</label>
+            <input type="text" name="nama_kegiatan" id="nama_kegiatan" placeholder="Contoh: Pengajian Jumat" required
+                   class="border border-green-300 bg-white text-gray-800 rounded-lg w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm" />
+        </div>
+
+        <!-- Upload Foto -->
+        <div>
+            <label for="foto" class="block text-sm font-semibold mb-2 text-white">Upload Foto Kegiatan</label>
+            <div class="relative flex flex-col sm:flex-row items-center gap-4 bg-white rounded-xl border-2 border-dashed border-green-400 px-4 py-6 cursor-pointer transition-all hover:border-green-600 hover:bg-green-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M3 16v-1a4 4 0 014-4h2m4 0h2a4 4 0 014 4v1m-6-6V4m0 0L8 8m4-4l4 4" />
+                </svg>
+                <div class="text-left">
+                    <p class="text-green-800 font-medium text-sm sm:text-base">Pilih Foto Kegiatan</p>
+                    <p class="text-xs text-gray-600">Bisa memilih lebih dari satu foto sekaligus</p>
+                </div>
+                <input type="file" name="foto[]" id="foto" multiple required
+               class="absolute inset-0 opacity-0 w-full h-full cursor-pointer z-10"
+               onchange="handleFileSelect(event)" />
+            </div>
+        </div>
+
+        <!-- Preview Gambar -->
+        <div id="preview" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4"></div>
+
+        <!-- Tombol Upload -->
+        <div>
             <button type="submit" name="upload"
-                    class="bg-white text-green-800 font-bold px-6 py-3 rounded-xl shadow hover:bg-green-100 hover:text-green-900 transition-all duration-300">
+                    class="bg-white text-green-800 font-bold px-6 py-3 rounded-xl shadow hover:bg-green-100 hover:text-green-900 transition-all duration-300 w-full sm:w-auto">
                 Upload
             </button>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
+
+
+
+
 
     <!-- Galeri Kegiatan -->
     <h2 class="text-2xl font-bold text-green-800 mb-6">📸 Galeri Kegiatan Majelis</h2>
@@ -110,6 +147,42 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
         if (e.target === this) closeModal(<?= $i ?>);
     });
     <?php endfor; ?>
+
+
+
+
+    let selectedFiles = [];
+
+function handleFileSelect(event) {
+    const files = Array.from(event.target.files);
+    selectedFiles = [...selectedFiles, ...files]; // gabungkan dengan yang sudah ada
+
+    updatePreview();
+}
+
+function updatePreview() {
+    const preview = document.getElementById('preview');
+    preview.innerHTML = '';
+
+    selectedFiles.forEach(file => {
+        if (!file.type.match('image')) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const div = document.createElement('div');
+            div.className = 'relative';
+
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'w-full h-40 object-cover rounded-xl shadow-lg transition-all duration-300 hover:scale-105';
+
+            div.appendChild(img);
+            preview.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
 </script>
 
 <?php include 'layout/footer.php'; ?>
