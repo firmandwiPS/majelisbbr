@@ -1,32 +1,38 @@
 <?php
-session_start();
-
-if (!isset($_SESSION["login"])) {
-    echo "<script>alert('Login Dulu!!'); location.href='login.php';</script>";
-    exit;
-}
-
-if ($_SESSION["level"] != 1 && $_SESSION["level"] != 2) {
-    echo "<script>alert('Perhatian Anda Tidak Punya Hak Akses!!'); location.href='akun.php';</script>";
-    exit;
-}
-
 require 'config/databasefoto.php';
 
 if (isset($_POST['upload'])) {
-    $nama_kegiatan = htmlspecialchars($_POST['nama_kegiatan']);
-    $total = count($_FILES['foto']['name']);
+    $nama_kegiatan = mysqli_real_escape_string($conn, $_POST['nama_kegiatan']);
+    $targetDir = "uploads/"; // Direktori untuk menyimpan file
+    $uploadedFiles = [];
 
-    for ($i = 0; $i < $total; $i++) {
-        $tmp_name = $_FILES['foto']['tmp_name'][$i];
-        $filename = uniqid() . '_' . $_FILES['foto']['name'][$i];
-        $target_path = 'uploads/' . $filename;
+    foreach ($_FILES['foto']['name'] as $key => $fileName) {
+        $targetFilePath = $targetDir . basename($_FILES['foto']['name'][$key]);
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-        if (move_uploaded_file($tmp_name, $target_path)) {
-            mysqli_query($conn, "INSERT INTO dokumentasi_kegiatan (nama_kegiatan, foto) VALUES ('$nama_kegiatan', '$target_path')");
+        // Validasi jenis file gambar (png, jpg, jpeg)
+        if (in_array($fileType, ['jpg', 'png', 'jpeg'])) {
+            if (move_uploaded_file($_FILES['foto']['tmp_name'][$key], $targetFilePath)) {
+                // Menyimpan ke dalam database
+                $query = "INSERT INTO dokumentasi_kegiatan (nama_kegiatan, foto) 
+                          VALUES ('$nama_kegiatan', '$targetFilePath')";
+                if (mysqli_query($conn, $query)) {
+                    $uploadedFiles[] = $fileName;
+                } else {
+                    echo "Error uploading file: " . mysqli_error($conn);
+                }
+            } else {
+                echo "Failed to upload file: " . $_FILES['foto']['name'][$key];
+            }
+        } else {
+            echo "Invalid file type for file: " . $_FILES['foto']['name'][$key];
         }
     }
 
-    echo "<script>alert('Foto berhasil diunggah!'); location.href='dokumentasi.php';</script>";
+    if (count($uploadedFiles) > 0) {
+        echo "<script>alert('Foto berhasil diupload!'); location.href='dokumentasi.php';</script>";
+    } else {
+        echo "<script>alert('Gagal mengupload foto.'); location.href='dokumentasi.php';</script>";
+    }
 }
 ?>
