@@ -100,24 +100,63 @@ $index = 0;
 while ($k = mysqli_fetch_assoc($kegiatan)) {
     $namaKegiatan = htmlspecialchars($k['nama_kegiatan']);
 ?>
-<div id="modal-<?= $index ?>" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative">
-        <div class="sticky top-0 bg-white p-4 flex justify-between items-center border-b">
-            <h3 class="text-xl font-bold text-green-800"><?= $namaKegiatan ?></h3>
-            <button onclick="closeModal(<?= $index ?>)" class="text-2xl text-gray-700 hover:text-red-600">&times;</button>
+<div id="modal-<?= $index ?>" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center p-2 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative animate-fadeIn">
+        
+        <!-- Header Modal -->
+        <div class="sticky top-0 bg-white px-4 py-3 flex justify-between items-center border-b border-gray-200 z-10">
+            <h3 class="text-lg md:text-xl font-bold text-green-800"><?= $namaKegiatan ?></h3>
+            <button onclick="closeModal(<?= $index ?>)" class="text-2xl text-gray-600 hover:text-red-500 transition">&times;</button>
         </div>
-        <div class="p-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+
+        <!-- Galeri Foto -->
+        <div class="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             <?php
             $fotos = mysqli_query($conn, "SELECT * FROM dokumentasi_kegiatan WHERE nama_kegiatan = '" . mysqli_real_escape_string($conn, $k['nama_kegiatan']) . "' ORDER BY uploaded_at DESC");
             while ($row = mysqli_fetch_assoc($fotos)) {
-                echo '<img id="foto' . $row['id'] . '" src="' . $row['foto'] . '" alt="Foto kegiatan" class="rounded-lg cursor-pointer hover:scale-105 transition-transform duration-200" onclick="showLargeImage(this.src, \'foto' . $row['id'] . '\')" />';
+                echo '<img id="foto' . $row['id'] . '" src="' . $row['foto'] . '" alt="Foto kegiatan" 
+                      class="rounded-lg w-full h-32 object-cover cursor-pointer hover:scale-105 transition duration-200 shadow-sm"
+                      onclick="showLargeImage(this.src, \'foto' . $row['id'] . '\')" />';
             }
             ?>
         </div>
+
+        <!-- Tombol Tampilkan Form -->
+        <div class="px-4 pt-3 border-t mt-4 flex justify-end">
+            <button onclick="toggleForm(<?= $index ?>)" 
+                    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-xl transition shadow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Tambah Foto
+            </button>
+        </div>
+
+        <!-- Form Tambah Foto (hidden by default) -->
+        <div id="form-upload-<?= $index ?>" class="p-4 hidden transition duration-300">
+            <form action="upload_lanjutan.php" method="post" enctype="multipart/form-data" class="space-y-4">
+                <input type="hidden" name="nama_kegiatan" value="<?= $namaKegiatan ?>">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Foto (boleh banyak):</label>
+                    <input type="file" name="foto[]" multiple required
+                           class="block w-full file:mr-4 file:py-2 file:px-4
+                           file:rounded-md file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-green-50 file:text-green-700
+                           hover:file:bg-green-100 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500">
+                </div>
+                <button type="submit" name="upload"
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow">
+                    Upload Foto
+                </button>
+            </form>
+        </div>
+
     </div>
 </div>
-
 <?php $index++; } ?>
+
+
 
 <!-- Modal Gambar Besar -->
 <div id="image-modal" class="fixed inset-0 z-50 bg-black bg-opacity-90 hidden flex items-center justify-center px-4">
@@ -248,6 +287,31 @@ function addNewPhotoToGallery(filePath) {
             reader.readAsDataURL(file);
         });
     }
+
+
+
+
+
+
+
+
+
+    function openModal(index) {
+    document.getElementById(`modal-${index}`).classList.remove('hidden');
+    document.getElementById(`modal-${index}`).classList.add('flex');
+}
+
+function closeModal(index) {
+    document.getElementById(`modal-${index}`).classList.add('hidden');
+    document.getElementById(`modal-${index}`).classList.remove('flex');
+}
+
+// Toggle form upload dalam modal
+function toggleForm(index) {
+    const form = document.getElementById(`form-upload-${index}`);
+    form.classList.toggle('hidden');
+}
+
 </script>
 
 <?php include 'layout/footer.php'; ?>
