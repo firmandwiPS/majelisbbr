@@ -2,24 +2,21 @@
 require 'config/databasefoto.php'; // Koneksi database
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['foto'])) {
-    $fotoPath = $_POST['foto'];
-    $fotoPath = mysqli_real_escape_string($conn, $fotoPath);
-
-    // Ambil nama file
-    $filename = basename($fotoPath);
+    $fotoName = basename($_POST['foto']); // Ambil nama file saja
+    $fotoPath = 'uploads/' . $fotoName;   // Path lengkap file
 
     // Cek apakah foto ada di database
-    $query = "SELECT * FROM dokumentasi_kegiatan WHERE foto LIKE '%$filename%'";
+    $query = "SELECT * FROM dokumentasi_kegiatan WHERE foto LIKE '%$fotoName%'";
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
-        // Hapus file dari folder
+        // Hapus file dari folder uploads
         if (file_exists($fotoPath)) {
             unlink($fotoPath); // Hapus file dari server
         }
 
         // Hapus data dari database
-        $delete = mysqli_query($conn, "DELETE FROM dokumentasi_kegiatan WHERE foto LIKE '%$filename%'");
+        $delete = mysqli_query($conn, "DELETE FROM dokumentasi_kegiatan WHERE foto LIKE '%$fotoName%'");
 
         if ($delete) {
             echo "Foto berhasil dihapus.";
