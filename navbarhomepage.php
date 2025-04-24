@@ -3,7 +3,7 @@
   <div class="container mx-auto flex items-center justify-between px-4 py-4">
     <!-- Logo dan Nama -->
     <div class="flex items-center gap-3">
-      <img src="assets/img/logo.png" alt="Logo Majelis" class="w-10 h-10 rounded-full shadow-md">
+      <img src="assets/img/logobbr.png" alt="Logo Majelis" class="w-20 mx-auto rounded-full shadow-md">
       <h1 class="text-xl font-bold">Majelis Baburrahman</h1>
     </div>
 

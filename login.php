@@ -60,7 +60,7 @@ if (isset($_POST['login'])) {
 </head>
 <body class="bg-green-900 min-h-screen flex items-center justify-center px-4">
   <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center space-y-6 border-4 border-yellow-400">
-    <img src="assets/img/" alt="Logo Majelis" class="w-20 mx-auto mb-3" />
+    <img src="assets/img/logobbr.png" alt="Logo Majelis" class="w-30 mx-auto mb-3" />
     <h2 class="text-2xl font-bold text-green-800">Silahkan Login</h2>
 
     <?php if ($errorAuth || $errorRecaptcha) : ?>

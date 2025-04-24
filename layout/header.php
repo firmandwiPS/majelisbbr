@@ -56,7 +56,7 @@ include 'config/app.php'
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="assets-template/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="assets/img/logobbr.png" alt="AdminLTELogo" height="150" width="150">
   </div>
 
 <!-- Navbar -->
@@ -79,7 +79,7 @@ include 'config/app.php'
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #065f46;"> 
   <!-- Brand Logo with image -->
   <a href="dokumentasi.php" class="brand-link text-center d-flex flex-row align-items-center">
-  <img src="assets/img/majelis-logo.png" alt="Majelis Logo" class="img-circle elevation-3" style="width: 50px; height: 50px; object-fit: cover;">
+  <img src="assets/img/logobbr.png" alt="Majelis Logo" class="img-circle elevation-3" style="width: 50px; height: 50px; object-fit: cover;">
   <span class="brand-text font-weight-bold text-white ml-2" style="font-size: 16px;">Majelis Baburrahman</span>
 </a>
 
