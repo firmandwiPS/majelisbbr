@@ -28,17 +28,15 @@ include 'layout/header.php';
     <p class="text-green-100 mb-6 text-sm sm:text-base">Unggah banyak foto dalam satu kegiatan Majelis Baburrahman. File akan otomatis dikategorikan.</p>
 
     <form action="upload.php" method="post" enctype="multipart/form-data" class="space-y-5">
-        <!-- Nama Kegiatan -->
         <div>
             <label class="block text-sm font-semibold mb-1 text-white" for="nama_kegiatan">Nama Kegiatan</label>
-            <input type="text" name="nama_kegiatan" id="nama_kegiatan" placeholder="Contoh: Pengajian Jumat" required
+            <input type="text" name="nama_kegiatan" id="nama_kegiatan" required
                    class="border border-green-300 bg-white text-gray-800 rounded-lg w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm" />
         </div>
 
-        <!-- Upload Foto -->
         <div>
             <label for="foto" class="block text-sm font-semibold mb-2 text-white">Upload Foto Kegiatan</label>
-            <div class="relative flex flex-col sm:flex-row items-center gap-4 bg-white rounded-xl border-2 border-dashed border-green-400 px-4 py-6 cursor-pointer transition-all hover:border-green-600 hover:bg-green-50">
+            <div class="relative flex flex-col sm:flex-row items-center gap-4 bg-white rounded-xl border-2 border-dashed border-green-400 px-4 py-6 cursor-pointer hover:border-green-600 hover:bg-green-50">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M3 16v-1a4 4 0 014-4h2m4 0h2a4 4 0 014 4v1m-6-6V4m0 0L8 8m4-4l4 4" />
@@ -53,10 +51,8 @@ include 'layout/header.php';
             </div>
         </div>
 
-        <!-- Preview Gambar -->
-<div id="preview" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4"></div>
+        <div id="preview" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4"></div>
 
-        <!-- Tombol Upload -->
         <div>
             <button type="submit" name="upload"
                     class="bg-white text-green-800 font-bold px-6 py-3 rounded-xl shadow hover:bg-green-100 hover:text-green-900 transition-all duration-300 w-full sm:w-auto">
@@ -66,11 +62,7 @@ include 'layout/header.php';
     </form>
 </div>
 
-
-
-
-
-<!-- Galeri Kegiatan -->
+<!-- Galeri -->
 <h2 class="text-2xl font-bold text-green-800 mb-6">📸 Galeri Kegiatan Majelis</h2>
 <?php
 $kegiatan = mysqli_query($conn, "SELECT DISTINCT nama_kegiatan FROM dokumentasi_kegiatan ORDER BY uploaded_at DESC");
@@ -83,17 +75,35 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
     echo '<input type="hidden" name="nama_kegiatan" value="' . $namaKegiatan . '">';
     echo '<button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg shadow">Hapus</button>';
     echo '</form>';
+    echo '<button onclick="openRenameModal(\'' . $namaKegiatan . '\')" class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold px-4 py-2 rounded-lg shadow">Ubah</button>';
     echo '</div>';
     $index++;
 }
 ?>
-
 </div>
 
 
 
+<!-- Modal Ubah Nama -->
+<div id="rename-modal" class="fixed inset-0 z-50 bg-black bg-opacity-60 hidden items-center justify-center">
+    <div class="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
+        <h2 class="text-xl font-bold text-green-800 mb-4">Ubah Nama Kegiatan</h2>
+        <form method="POST" action="ubah_nama_kegiatan.php" class="space-y-4">
+            <input type="hidden" name="nama_lama" id="rename-nama-lama">
+            <div>
+                <label class="text-sm font-medium text-gray-700 mb-1 block">Nama Baru</label>
+                <input type="text" name="nama_baru" id="rename-nama-baru" required
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-green-500">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" onclick="closeRenameModal()" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-green-600 text-white font-semibold hover:bg-green-700 rounded-lg">Ubah</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-<!-- Modal Galeri Foto -->
+
 <?php
 $kegiatan = mysqli_query($conn, "SELECT DISTINCT nama_kegiatan FROM dokumentasi_kegiatan ORDER BY uploaded_at DESC");
 $index = 0;
@@ -102,28 +112,27 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
 ?>
 <div id="modal-<?= $index ?>" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center p-2 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative animate-fadeIn">
-        
-        <!-- Header Modal -->
         <div class="sticky top-0 bg-white px-4 py-3 flex justify-between items-center border-b border-gray-200 z-10">
             <h3 class="text-lg md:text-xl font-bold text-green-800"><?= $namaKegiatan ?></h3>
             <button onclick="closeModal(<?= $index ?>)" class="text-2xl text-gray-600 hover:text-red-500 transition">&times;</button>
         </div>
 
-        <!-- Galeri Foto -->
+
+        
+
         <div class="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             <?php
             $fotos = mysqli_query($conn, "SELECT * FROM dokumentasi_kegiatan WHERE nama_kegiatan = '" . mysqli_real_escape_string($conn, $k['nama_kegiatan']) . "' ORDER BY uploaded_at DESC");
             while ($row = mysqli_fetch_assoc($fotos)) {
-                echo '<img id="foto' . $row['id'] . '" src="' . $row['foto'] . '" alt="Foto kegiatan" 
+                echo '<img id="foto' . $row['id'] . '" src="' . $row['foto'] . '" alt="Foto kegiatan"
                       class="rounded-lg w-full h-32 object-cover cursor-pointer hover:scale-105 transition duration-200 shadow-sm"
                       onclick="showLargeImage(this.src, \'foto' . $row['id'] . '\')" />';
             }
             ?>
         </div>
 
-        <!-- Tombol Tampilkan Form -->
         <div class="px-4 pt-3 border-t mt-4 flex justify-end">
-            <button onclick="toggleForm(<?= $index ?>)" 
+            <button onclick="toggleForm(<?= $index ?>)"
                     class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-xl transition shadow">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -132,18 +141,12 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
             </button>
         </div>
 
-        <!-- Form Tambah Foto (hidden by default) -->
         <div id="form-upload-<?= $index ?>" class="p-4 hidden transition duration-300">
             <form action="upload_lanjutan.php" method="post" enctype="multipart/form-data" class="space-y-4">
                 <input type="hidden" name="nama_kegiatan" value="<?= $namaKegiatan ?>">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Foto (boleh banyak):</label>
-                    <input type="file" name="foto[]" multiple required
-                           class="block w-full file:mr-4 file:py-2 file:px-4
-                           file:rounded-md file:border-0
-                           file:text-sm file:font-semibold
-                           file:bg-green-50 file:text-green-700
-                           hover:file:bg-green-100 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500">
+                    <input type="file" name="foto[]" multiple required class="block w-full border border-gray-300 rounded-lg shadow-sm">
                 </div>
                 <button type="submit" name="upload"
                         class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow">
@@ -151,28 +154,53 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
                 </button>
             </form>
         </div>
-
     </div>
 </div>
 <?php $index++; } ?>
 
-
-
 <!-- Modal Gambar Besar -->
 <div id="image-modal" class="fixed inset-0 z-50 bg-black bg-opacity-90 hidden flex items-center justify-center px-4">
     <div class="relative">
-    <input type="hidden" id="large-image-path" />
-    <img id="large-image" src="" class="max-h-[90vh] rounded-xl shadow-2xl border-4 border-white" data-element-id="">
-
-<button onclick="closeImage()" class="absolute top-2 right-2 text-white text-3xl font-bold bg-black bg-opacity-50 px-2 rounded">&times;</button>
-<button onclick="deleteImage()" class="absolute bottom-2 right-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow">
-    Hapus Foto Ini
-</button>
-
+        <input type="hidden" id="large-image-path" />
+        <img id="large-image" src="" class="max-h-[90vh] rounded-xl shadow-2xl border-4 border-white" data-element-id="">
+        <button onclick="closeImage()" class="absolute top-2 right-2 text-white text-3xl font-bold bg-black bg-opacity-50 px-2 rounded">&times;</button>
+        <button onclick="deleteImage()" class="absolute bottom-2 right-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow">Hapus Foto Ini</button>
     </div>
 </div>
 
 <script>
+    let selectedFiles = [];
+
+    function handleFileSelect(event) {
+        const files = Array.from(event.target.files);
+        selectedFiles = [...selectedFiles, ...files];
+        updatePreview();
+    }
+
+    function updatePreview() {
+        const preview = document.getElementById('preview');
+        preview.innerHTML = '';
+        selectedFiles.forEach((file, index) => {
+            if (!file.type.match('image')) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const div = document.createElement('div');
+                div.className = 'relative group';
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'w-full h-40 object-cover rounded-xl shadow-lg';
+                const btn = document.createElement('button');
+                btn.innerHTML = '&times;';
+                btn.onclick = () => { selectedFiles.splice(index, 1); updatePreview(); };
+                btn.className = 'absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 shadow';
+                div.appendChild(img);
+                div.appendChild(btn);
+                preview.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     function openModal(index) {
         document.getElementById('modal-' + index).classList.remove('hidden');
         document.getElementById('modal-' + index).classList.add('flex');
@@ -195,121 +223,45 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
     }
 
     function deleteImage() {
-    const imageUrl = document.getElementById('large-image-path').value;
-    if (!imageUrl) return;
-
-    if (confirm('Yakin ingin menghapus foto ini?')) {
-        fetch('hapus_foto.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'foto=' + encodeURIComponent(imageUrl)
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);  // Tampilkan pesan dari PHP (sukses/gagal)
-            closeImage();  // Tutup modal gambar besar
-
-            // Hapus dari tampilan galeri
-            const elementId = document.getElementById('large-image').getAttribute('data-element-id');
-            const imgElement = document.getElementById(elementId);
-            if (imgElement) {
-                imgElement.remove();
-            }
-        })
-        .catch(error => {
-            alert('Gagal menghapus gambar: ' + error);
-        });
-    }
-}
-
-
-
-    document.getElementById('image-modal').addEventListener('click', function (e) {
-        if (e.target === this) closeImage();
-    });
-
-    <?php for ($i = 0; $i < $index; $i++) : ?>
-    document.getElementById('modal-<?= $i ?>').addEventListener('click', function (e) {
-        if (e.target === this) closeModal(<?= $i ?>);
-    });
-    <?php endfor; ?>
-
-
-    let selectedFiles = [];
-
-    function handleFileSelect(event) {
-        const files = Array.from(event.target.files);
-        selectedFiles = [...selectedFiles, ...files]; // Menambahkan ke array
-        updatePreview();
+        const imageUrl = document.getElementById('large-image-path').value;
+        if (!imageUrl) return;
+        if (confirm('Yakin ingin menghapus foto ini?')) {
+            fetch('hapus_foto.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'foto=' + encodeURIComponent(imageUrl)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                closeImage();
+                const elementId = document.getElementById('large-image').getAttribute('data-element-id');
+                const imgElement = document.getElementById(elementId);
+                if (imgElement) imgElement.remove();
+            })
+            .catch(error => {
+                alert('Gagal menghapus gambar: ' + error);
+            });
+        }
     }
 
-    function removeFile(index) {
-        selectedFiles.splice(index, 1); // Menghapus berdasarkan index
-        updatePreview();
-    }
-
-    // Tambahkan foto baru ke dalam galeri setelah upload
-function addNewPhotoToGallery(filePath) {
-    const preview = document.getElementById('preview');
-    const imgElement = document.createElement('img');
-    imgElement.src = filePath;
-    imgElement.classList.add('rounded-lg', 'cursor-pointer', 'hover:scale-105', 'transition-transform', 'duration-200');
-    imgElement.setAttribute('onclick', 'showLargeImage("' + filePath + '")');
-    preview.appendChild(imgElement);
-}
-
-
-    function updatePreview() {
-        const preview = document.getElementById('preview');
-        preview.innerHTML = '';
-
-        selectedFiles.forEach((file, index) => {
-            if (!file.type.match('image')) return;
-
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const div = document.createElement('div');
-                div.className = 'relative group';
-
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.className = 'w-full h-40 object-cover rounded-xl shadow-lg transition-all duration-300 hover:scale-105';
-
-                const button = document.createElement('button');
-                button.innerHTML = '&times;';
-                button.onclick = () => removeFile(index);
-                button.className = 'absolute top-1 right-1 bg-red-600 text-white rounded-full w-7 h-7 text-lg font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10';
-
-                div.appendChild(img);
-                div.appendChild(button);
-                preview.appendChild(div);
-            };
-            reader.readAsDataURL(file);
-        });
+    function toggleForm(index) {
+        const form = document.getElementById('form-upload-' + index);
+        form.classList.toggle('hidden');
     }
 
 
 
 
-
-
-
-
-
-    function openModal(index) {
-    document.getElementById(`modal-${index}`).classList.remove('hidden');
-    document.getElementById(`modal-${index}`).classList.add('flex');
+    function openRenameModal(namaKegiatan) {
+    document.getElementById('rename-nama-lama').value = namaKegiatan;
+    document.getElementById('rename-nama-baru').value = namaKegiatan;
+    document.getElementById('rename-modal').classList.remove('hidden');
+    document.getElementById('rename-modal').classList.add('flex');
 }
 
-function closeModal(index) {
-    document.getElementById(`modal-${index}`).classList.add('hidden');
-    document.getElementById(`modal-${index}`).classList.remove('flex');
-}
-
-// Toggle form upload dalam modal
-function toggleForm(index) {
-    const form = document.getElementById(`form-upload-${index}`);
-    form.classList.toggle('hidden');
+function closeRenameModal() {
+    document.getElementById('rename-modal').classList.add('hidden');
 }
 
 </script>
