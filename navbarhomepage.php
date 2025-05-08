@@ -1,5 +1,5 @@
 <!-- Header Responsive Hijau -->
-<header class="bg-green-800 text-white shadow-md sticky top-0 z-50">
+<header class=" text-white shadow-md sticky top-0 z-50" style="background-color: #065f46;">
   <div class="container mx-auto flex items-center justify-between px-4 py-4">
     <!-- Logo dan Nama -->
     <div class="flex items-center gap-3">
@@ -33,7 +33,7 @@
 
   <!-- Navigasi Mobile Dropdown -->
   <div id="mobileMenu"
-    class="sm:hidden hidden flex flex-col gap-4 px-6 py-4 bg-green-800 text-white transition-all duration-300 transform translate-y-[-100%]">
+    class="sm:hidden hidden flex flex-col gap-4 px-6 py-4 bg-green-800 text-white transition-all duration-300 transform translate-y-[-100%]" style="background-color: #065f46;">
     <a href="index.php" class="hover:underline transition-all duration-300 ease-in-out transform hover:scale-105">Tentang</a>
     <a href="kegiatanpage.php" class="hover:underline transition-all duration-300 ease-in-out transform hover:scale-105">Kegiatan</a>
     <a href="galeripage.php" class="hover:underline transition-all duration-300 ease-in-out transform hover:scale-105">Galeri</a>

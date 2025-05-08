@@ -16,9 +16,9 @@ $title = 'Dokumentasi';
 include 'layout/header.php';
 ?>
 
-<div class="container mx-auto px-4 py-10">
+<div class="content-wrapper  px-4 py-10">
 <!-- Upload Form -->
-<div class="bg-gradient-to-br from-emerald-600 to-green-700 text-white rounded-2xl shadow-2xl p-8 mb-12 animate__animated animate__fadeIn">
+<div class=" bg-gradient-to-br from-emerald-600 to-green-700 text-white rounded-2xl shadow-2xl p-8 mb-12 animate__animated animate__fadeIn">
     <div class="flex items-center gap-3 mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white bg-emerald-900 p-2 rounded-full shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2-2h6l2 2h4v11H3V7z" />

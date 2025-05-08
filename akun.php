@@ -50,7 +50,7 @@ if (isset($_POST['ubah'])) {
 }
 ?>
 
-<section class="bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 min-h-screen pt-24">
+<section class="content-wrapper bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 min-h-screen pt-24">
   <div class="max-w-7xl mx-auto">
     <!-- Judul -->
     <div class="text-center mb-10">

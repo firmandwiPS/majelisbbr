@@ -37,16 +37,16 @@
 <!-- TENTANG MAJELIS -->
 <section class="bg-white min-h-screen py-28">
   <div class="container mx-auto px-6">
-    <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-14 text-green-700" data-aos="fade-down">Tentang Majelis</h2>
+    <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-14" style="color: #065f46;" data-aos="fade-down">Tentang Majelis</h2>
     <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto text-lg md:text-xl leading-relaxed text-gray-700">
       <div data-aos="fade-right">
         <h3 class="text-3xl font-semibold text-yellow-600 mb-4">Awal Berdiri</h3>
-        <p>Majelis ini didirikan oleh <strong class="text-green-700">KH. Ahmad Syukri</strong> pada tahun <strong class="text-green-700">2015</strong>. Dimulai dari kajian kecil di rumah, kini telah berkembang menjadi komunitas sosial dan spiritual yang aktif.</p>
+        <p>Majelis ini didirikan oleh <strong style="color: #065f46;">KH. Ahmad Syukri</strong> pada tahun <strong style="color: #065f46;">2015</strong>. Dimulai dari kajian kecil di rumah, kini telah berkembang menjadi komunitas sosial dan spiritual yang aktif.</p>
       </div>
       <div data-aos="fade-left">
         <h3 class="text-3xl font-semibold text-yellow-600 mb-4">Visi & Misi</h3>
-        <p class="mb-3"><strong class="text-green-700">Visi:</strong> Menjadi pelita yang menyinari umat dengan ilmu, cinta, dan kepedulian sosial.</p>
-        <p class="mb-2"><strong class="text-green-700">Misi:</strong></p>
+        <p class="mb-3"><strong style="color: #065f46;">Visi:</strong> Menjadi pelita yang menyinari umat dengan ilmu, cinta, dan kepedulian sosial.</p>
+        <p class="mb-2"><strong style="color: #065f46;">Misi:</strong></p>
         <ul class="list-disc ml-6 space-y-2">
           <li>Menghidupkan ukhuwah dan ibadah melalui kegiatan dakwah dan sosial.</li>
           <li>Menyebarkan dakwah dan edukasi ke seluruh lapisan masyarakat.</li>
@@ -61,52 +61,80 @@
   </div>
 </section>
 
+
 <!-- STRUKTUR ORGANISASI -->
-<section class="bg-green-800 py-24 text-white">
+<section class="py-24 text-white" >
   <div class="container mx-auto px-6">
-    <h3 class="text-4xl md:text-5xl font-bold text-center text-yellow-400 mb-20" data-aos="fade-up">Struktur Organisasi</h3>
+    <h3 class="text-4xl md:text-5xl font-bold text-center text-yellow-400 mb-20" data-aos="fade-up">
+      Struktur Organisasi
+    </h3>
 
     <!-- Ketua -->
     <div class="flex justify-center mb-16" data-aos="fade-down">
-      <div class="bg-white text-gray-700 p-6 rounded-2xl shadow-xl w-full max-w-xs text-center">
-        <img src="assets/img/ketua.jpg" class="w-full h-60 object-cover rounded-xl mb-4 shadow-md" alt="Ketua Majelis">
-        <h4 class="text-xl font-semibold text-green-700">Ustazah Lilis Maryam</h4>
-        <p class="text-gray-600">Ketua Majelis</p>
+      <div class="flex flex-col items-center text-center transition-transform duration-300 hover:scale-105">
+        <div class="relative w-60 h-60 rounded-full overflow-hidden shadow-2xl">
+          <img src="assets/img/ketua.png" alt="Ketua Majelis" class="w-full h-full object-cover">
+        </div>
+        <div class="mt-6">
+          <h4 class="text-2xl font-bold text-yellow-400 mb-2">Ustadz Haji, M Raihan Ramadhan</h4>
+          <p class="text-lg text-white">Ketua Majelis</p>
+        </div>
       </div>
     </div>
 
     <!-- Wakil Ketua -->
     <div class="flex justify-center mb-16" data-aos="fade-left">
-      <div class="bg-white text-gray-700 p-6 rounded-2xl shadow-xl w-full max-w-xs text-center">
-        <img src="assets/img/wakil.jpg" class="w-full h-60 object-cover rounded-xl mb-4 shadow-md" alt="Wakil Ketua">
-        <h4 class="text-xl font-semibold text-green-700">Hj. Siti Maemunah</h4>
-        <p class="text-gray-600">Wakil Ketua</p>
+      <div class="flex flex-col items-center text-center transition-transform duration-300 hover:scale-105">
+        <div class="relative w-60 h-60 rounded-full overflow-hidden shadow-2xl">
+          <img src="assets/img/wakil.jpg" alt="Wakil Ketua" class="w-full h-full object-cover">
+        </div>
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold text-yellow-400">Hj. Siti Maemunah</h4>
+          <p class="text-white">Wakil Ketua</p>
+        </div>
       </div>
     </div>
 
     <!-- Anggota Lain -->
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 text-center" data-aos="fade-up">
+      
       <!-- Sekretaris -->
-      <div class="bg-white text-gray-700 p-6 rounded-2xl shadow-xl">
-        <img src="assets/img/sekretaris.jpg" class="w-full h-60 object-cover rounded-xl mb-4 shadow-md" alt="Sekretaris">
-        <h4 class="text-xl font-semibold text-green-700">Nur Aini</h4>
-        <p class="text-gray-600">Sekretaris</p>
+      <div class="flex flex-col items-center transition-transform duration-300 hover:scale-105">
+        <div class="relative w-60 h-60 rounded-full overflow-hidden shadow-2xl">
+          <img src="assets/img/sekretaris.jpg" alt="Sekretaris" class="w-full h-full object-cover">
+        </div>
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold text-yellow-400">Nur Aini</h4>
+          <p class="text-white">Sekretaris</p>
+        </div>
       </div>
+
       <!-- Bendahara -->
-      <div class="bg-white text-gray-700 p-6 rounded-2xl shadow-xl">
-        <img src="assets/img/bendahara.jpg" class="w-full h-60 object-cover rounded-xl mb-4 shadow-md" alt="Bendahara">
-        <h4 class="text-xl font-semibold text-green-700">Rina Fauziah</h4>
-        <p class="text-gray-600">Bendahara</p>
+      <div class="flex flex-col items-center transition-transform duration-300 hover:scale-105">
+        <div class="relative w-60 h-60 rounded-full overflow-hidden shadow-2xl">
+          <img src="assets/img/bendahara.jpg" alt="Bendahara" class="w-full h-full object-cover">
+        </div>
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold text-yellow-400">Rina Fauziah</h4>
+          <p class="text-white">Bendahara</p>
+        </div>
       </div>
+
       <!-- Sie Humas -->
-      <div class="bg-white text-gray-700 p-6 rounded-2xl shadow-xl">
-        <img src="assets/img/humas.jpg" class="w-full h-60 object-cover rounded-xl mb-4 shadow-md" alt="Humas">
-        <h4 class="text-xl font-semibold text-green-700">Lina Wahyuni</h4>
-        <p class="text-gray-600">Sie Humas</p>
+      <div class="flex flex-col items-center transition-transform duration-300 hover:scale-105">
+        <div class="relative w-60 h-60 rounded-full overflow-hidden shadow-2xl">
+          <img src="assets/img/humas.jpg" alt="Humas" class="w-full h-full object-cover">
+        </div>
+        <div class="mt-6">
+          <h4 class="text-xl font-semibold text-yellow-400">Lina Wahyuni</h4>
+          <p class="text-white">Sie Humas</p>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
+
 
 
 <!-- LOKASI -->
