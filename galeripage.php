@@ -23,13 +23,19 @@ require 'config/databasefoto.php';
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-<?php include 'navbarhomepage.php' ?>
+<?php include 'navbar.php' ?>
 
 <div class="container mx-auto px-6 py-16">
-  <h2 class="text-4xl font-bold text-green-800 mb-12 text-center">📸 Galeri Kegiatan Majelis</h2>
+ <h2 class="text-4xl font-bold text-green-800 mb-10 text-center mt-24">📸 Galeri Kegiatan Majelis</h2>
 
   <?php
-  $kegiatan = mysqli_query($conn, "SELECT DISTINCT nama_kegiatan FROM dokumentasi_kegiatan ORDER BY uploaded_at DESC");
+$kegiatan = mysqli_query($conn, "
+    SELECT nama_kegiatan, MAX(uploaded_at) as last_uploaded 
+    FROM dokumentasi_kegiatan 
+    GROUP BY nama_kegiatan 
+    ORDER BY last_uploaded DESC
+");
+  
   while ($k = mysqli_fetch_assoc($kegiatan)) {
       $namaKegiatan = htmlspecialchars($k['nama_kegiatan']);
       echo '<div class="mb-12">';

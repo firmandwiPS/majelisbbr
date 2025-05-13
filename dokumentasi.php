@@ -65,7 +65,14 @@ include 'layout/header.php';
 <!-- Galeri -->
 <h2 class="text-2xl font-bold text-green-800 mb-6">📸 Galeri Kegiatan Majelis</h2>
 <?php
-$kegiatan = mysqli_query($conn, "SELECT DISTINCT nama_kegiatan FROM dokumentasi_kegiatan ORDER BY uploaded_at DESC");
+
+$kegiatan = mysqli_query($conn, "
+    SELECT nama_kegiatan, MAX(uploaded_at) as last_uploaded 
+    FROM dokumentasi_kegiatan 
+    GROUP BY nama_kegiatan 
+    ORDER BY last_uploaded DESC
+");
+
 $index = 0;
 while ($k = mysqli_fetch_assoc($kegiatan)) {
     $namaKegiatan = htmlspecialchars($k['nama_kegiatan']);
@@ -105,12 +112,20 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
 
 
 <?php
-$kegiatan = mysqli_query($conn, "SELECT DISTINCT nama_kegiatan FROM dokumentasi_kegiatan ORDER BY uploaded_at DESC");
+
+
+$kegiatan = mysqli_query($conn, "
+    SELECT nama_kegiatan, MAX(uploaded_at) as last_uploaded 
+    FROM dokumentasi_kegiatan 
+    GROUP BY nama_kegiatan 
+    ORDER BY last_uploaded DESC
+");
+
 $index = 0;
 while ($k = mysqli_fetch_assoc($kegiatan)) {
     $namaKegiatan = htmlspecialchars($k['nama_kegiatan']);
 ?>
-<div id="modal-<?= $index ?>" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center p-2 overflow-y-auto">
+<div id="modal-<?= $index ?>" class="content-wrapper fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center p-2 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative animate-fadeIn">
         <div class="sticky top-0 bg-white px-4 py-3 flex justify-between items-center border-b border-gray-200 z-10">
             <h3 class="text-lg md:text-xl font-bold text-green-800"><?= $namaKegiatan ?></h3>
@@ -159,7 +174,7 @@ while ($k = mysqli_fetch_assoc($kegiatan)) {
 <?php $index++; } ?>
 
 <!-- Modal Gambar Besar -->
-<div id="image-modal" class="fixed inset-0 z-50 bg-black bg-opacity-90 hidden flex items-center justify-center px-4">
+<div id="image-modal" class=" content-wrapper fixed inset-0 z-50 bg-black bg-opacity-90 hidden flex items-center justify-center px-4">
     <div class="relative">
         <input type="hidden" id="large-image-path" />
         <img id="large-image" src="" class="max-h-[90vh] rounded-xl shadow-2xl border-4 border-white" data-element-id="">
