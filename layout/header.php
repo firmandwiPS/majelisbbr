@@ -47,7 +47,43 @@ include 'config/app.php'
 
   <!-- jQuery -->
   <script src="assets-template/plugins/jquery/jquery.min.js"></script>
+<style>
 
+  @keyframes rotate-scale {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-logo {
+  animation: rotate-scale 2s infinite ease-in-out;
+}
+
+.animate-fadein {
+  animation: fadein 1.5s ease-in-out;
+}
+
+</style>
   
 </head>
 
@@ -55,9 +91,11 @@ include 'config/app.php'
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="assets/img/logobbr.png" alt="AdminLTELogo" height="150" width="150">
-  </div>
+<div class="preloader flex-column justify-content-center align-items-center h-screen bg-white">
+  <img class="animated-logo" src="assets/img/logobbr.png" alt="AdminLTELogo" height="150" width="150">
+  <p class="text-lg font-semibold mt-4 animate-fadein text-green-700">Memuat Konten...</p>
+</div>
+
 
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: #065f46;">
